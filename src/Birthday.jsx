@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Countdown from "./Countdown";
-import githubLogo from "./githubLogo.svg";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import { Link } from "react-router-dom";
 
 const Birthday = ({ name, day, month }) => {
@@ -14,75 +14,57 @@ const Birthday = ({ name, day, month }) => {
   });
 
   if (name === undefined || day === undefined || month === undefined) {
-    // This is if not enough params are provided
-    name = "M _ ji Marsya"; // Name of the Person
-    month = 10; // Month of the Birthday
-    day = 14; // Day of the Birthday
+    // Default values
+    name = "M _ ji Marsya";
+    month = 10;
+    day = 14;
   }
 
   // get current time
   const currentTime = new Date();
-  // get current year
   const currentYear = currentTime.getFullYear();
 
-  // Getting the Birthday in Data Object
-  // WE subtract 1 from momnth ; Months start from 0 in Date Object
   // Bithday Boolean
   const isItBday =
     currentTime.getDate() === day && currentTime.getMonth() === month - 1;
 
   useEffect(() => {
-    setInterval(() => {
-      const countdown = () => {
-        // Getting the Current Date
-        const dateAtm = new Date();
-
-        // if the Birthday has passed
-        // then set the Birthday countdown for next year
-        let birthdayDay = new Date(currentYear, month - 1, day);
-        if (dateAtm > birthdayDay) {
-          birthdayDay = new Date(currentYear + 1, month - 1, day);
-        } else if (dateAtm.getFullYear() === birthdayDay.getFullYear() + 1) {
-          birthdayDay = new Date(currentYear, month - 1, day);
-        }
-
-        // Getitng Current Time
-        const currentTime = dateAtm.getTime();
-        // Getting Birthdays Time
-        const birthdayTime = birthdayDay.getTime();
-
-        // Time remaining for the Birthdays
-        const timeRemaining = birthdayTime - currentTime;
-
-        let seconds = Math.floor(timeRemaining / 1000);
-        let minutes = Math.floor(seconds / 60);
-        let hours = Math.floor(minutes / 60);
-        let days = Math.floor(hours / 24);
-
-        seconds %= 60;
-        minutes %= 60;
-        hours %= 24;
-
-        // Setting States
-        setState((prevState) => ({
-          ...prevState,
-          seconds,
-          minutes,
-          hours,
-          days,
-          isItBday,
-        }));
-        // console.log(`${days}:${hours}:${minutes}:${seconds} , ${isItBday}`);
-      };
-      if (!isItBday) {
-        countdown();
-      } else {
-        setState((prevState) => ({
-          ...prevState,
-          isItBday: true,
-        }));
+    const interval = setInterval(() => {
+      // Getting the Current Date
+      const dateAtm = new Date();
+      let birthdayDay = new Date(currentYear, month - 1, day);
+      if (dateAtm > birthdayDay) {
+        birthdayDay = new Date(currentYear + 1, month - 1, day);
+      } else if (dateAtm.getFullYear() === birthdayDay.getFullYear() + 1) {
+        birthdayDay = new Date(currentYear, month - 1, day);
       }
+
+      // Getitng Current Time
+      const currentTime = dateAtm.getTime();
+      const birthdayTime = birthdayDay.getTime();
+      const timeRemaining = birthdayTime - currentTime;
+
+      let seconds = Math.floor(timeRemaining / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+      let days = Math.floor(hours / 24);
+
+      seconds %= 60;
+      minutes %= 60;
+      hours %= 24;
+
+      // Setting States
+      setState((prevState) => ({
+        ...prevState,
+        seconds,
+        minutes,
+        hours,
+        days,
+        isItBday,
+      }));
     }, 1000);
+
+    return () => clearInterval(interval); // Clear interval on component unmount
   }, [currentYear, day, isItBday, month]);
 
   let birth = new Date(currentYear, month - 1, day);
@@ -111,8 +93,12 @@ const Birthday = ({ name, day, month }) => {
             Birth-Date: {day} {monthBday} {currentYear} 🌻
           </div>
           <div className="credits">
-            <a href="https://github.com/slmnfqh">
-              <img src={githubLogo} alt="Github-Logo" className="github-logo" />
+            <a
+              href="https://github.com/slmnfqh"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GitHubIcon className="github-logo" fontSize="large" />
             </a>
           </div>
           {/* <Link to="/generate">Generate Here</Link> */}
