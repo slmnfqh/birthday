@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200&display=swap");
 
 /* VARIABLES */
 :root {
@@ -12,7 +12,7 @@
   padding: 0;
 }
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: var(--main-bg-color-dark);
   color: var(--main-text-color-dark);
   background-color: #1d1d1d;
@@ -27,7 +27,7 @@ body {
   text-align: center;
 }
 .heading {
-  font-size: 45px;
+  font-size: 30px;
 }
 .highlight {
   color: #7f78d2;
@@ -64,7 +64,7 @@ body {
   font-weight: 700;
 }
 .birthdate {
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 600;
   color: #7f78d2;
 }
@@ -73,7 +73,7 @@ body {
 }
 .github-logo {
   opacity: 0.5;
-  width: 50px;
+  width: 35px;
 }
 .github-logo:hover {
   opacity: 1;
