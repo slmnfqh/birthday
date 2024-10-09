@@ -76,7 +76,7 @@ body {
 
 .github-logo {
   opacity: 0.3;
-  width: 30px;
+  width: 35px;
   transition: opacity 0.1s ease;
 }
 .github-logo:hover {
