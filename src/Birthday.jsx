@@ -51,7 +51,7 @@ const Birthday = ({ name, day, month }) => {
         // Getting Birthdays Time
         const birthdayTime = birthdayDay.getTime();
 
-        // Time remaining for the Birthday
+        // Time remaining for the Birthdays
         const timeRemaining = birthdayTime - currentTime;
 
         let seconds = Math.floor(timeRemaining / 1000);
