@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Countdown from "./Countdown";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Link } from "react-router-dom";
 
 const Birthday = ({ name, day, month }) => {
   // useState Hooks
@@ -12,6 +11,9 @@ const Birthday = ({ name, day, month }) => {
     days: 0,
     isItBday: false,
   });
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = ["./muji.png", "./muji2.png"]; // Gambar untuk carousel
 
   if (name === undefined || day === undefined || month === undefined) {
     // Default values
@@ -30,7 +32,6 @@ const Birthday = ({ name, day, month }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Getting the Current Date
       const dateAtm = new Date();
       let birthdayDay = new Date(currentYear, month - 1, day);
       if (dateAtm > birthdayDay) {
@@ -39,7 +40,6 @@ const Birthday = ({ name, day, month }) => {
         birthdayDay = new Date(currentYear, month - 1, day);
       }
 
-      // Getitng Current Time
       const currentTime = dateAtm.getTime();
       const birthdayTime = birthdayDay.getTime();
       const timeRemaining = birthdayTime - currentTime;
@@ -53,7 +53,6 @@ const Birthday = ({ name, day, month }) => {
       minutes %= 60;
       hours %= 24;
 
-      // Setting States
       setState((prevState) => ({
         ...prevState,
         seconds,
@@ -66,6 +65,15 @@ const Birthday = ({ name, day, month }) => {
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, [currentYear, day, isItBday, month]);
+
+  // Effect untuk mengatur carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Ganti gambar setiap 3 detik
+
+    return () => clearInterval(timer); // Clear interval pada unmount
+  }, [images.length]);
 
   let birth = new Date(currentYear, month - 1, day);
   const monthNames = [
@@ -98,10 +106,13 @@ const Birthday = ({ name, day, month }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GitHubIcon className="github-logo" fontSize="large" />
+              <img
+                src={images[currentImageIndex]}
+                alt="GitHub Logo"
+                className="github-logo"
+              />
             </a>
           </div>
-          {/* <Link to="/generate">Generate Here</Link> */}
         </>
       )}
     </div>

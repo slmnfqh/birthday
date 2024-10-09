@@ -69,11 +69,15 @@ body {
   color: #7f78d2;
 }
 .credits {
-  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .github-logo {
-  opacity: 0.5;
-  width: 40px;
+  opacity: 0.7;
+  width: 45px;
+  transition: opacity 0.1s ease;
 }
 .github-logo:hover {
   opacity: 1;
