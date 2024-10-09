@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Countdown from "./Countdown";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Birthday = ({ name, day, month }) => {
   // useState Hooks
